@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+  </head>
+<body>
+  <div ng-app="myLogin" class="container" style="width:550px">
+    <!-- <div style="text-align:center;color:blue">
+      <h3>
+        <b>User Login Form</b>
+      </h3>
+    </div> -->
+    <div ng-controller="LoginController">
+      <!-- <div align="right">
+                <a href="#" ng-click="searchUser()">{{title}}</a>
+            </div> -->
+      <form #loginForm="ngForm" class="well" (ngSubmit)="checkUser(loginData)">
+        <!-- ng-hide="ifSearchUser" -->
+        <span class="error" id="errMsg" style="color: red" *ngIf="errMsgExist">{{errMsg}}</span>
+        <div class="form-group">
+          <label for="email"> Email: </label>
+          <input type="email" id="email" name="email" #email="ngModel" class="form-control" placeholder="Enter Email " [(ngModel)]="loginData.email" required>
+          <span class="error" style="color:red" *ngIf="email.dirty && email.errors?.required">Required!</span>
+          <span class="error" style="color:red" *ngIf="email.errors?.email">Not valid email!</span>
+        </div>
+        <div class="form-group">
+          <label for="password"> Password: </label>
+          <input type="password" id="password" name="password" #password="ngModel" class="form-control" placeholder="Enter Password " [(ngModel)]="loginData.password" required>
+          <span class="error" style="color:red" *ngIf="password.dirty && password.errors?.required">Required!</span>
+        </div>
+        <br>
+        <button class="btn btn-primary btn-block" type="submit" [disabled]="loginForm.invalid">Login</button>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

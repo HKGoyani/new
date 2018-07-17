@@ -1,0 +1,31 @@
+<div ng-controller="RegisterController">
+  <form #registerForm="ngForm" (ngSubmit)="registerUser(userData)" class="well">
+    <!-- ng-hide="ifSearchUser" -->
+    <span class="error" id="userExistMsg" style="color: red" *ngIf="userExist">User Already Registered.</span>
+    <div class="form-group">
+      <label for="name"> Name: </label>
+      <input type="text" id="name" #username="ngModel" name="username" class="form-control" placeholder="Enter Name " [(ngModel)]="userData.name" required/>
+      <span class="error" style="color:red" *ngIf="username.dirty && username.errors?.required">Required!</span>
+    </div>
+    <div class="form-group">
+      <label for="email"> Email: </label>
+      <input type="email" id="email" #email="ngModel" name="email" class="form-control" placeholder="Enter Email " [(ngModel)]="userData.email" required/>
+      <span class="error" style="color:red" *ngIf="email.dirty && email.errors?.required">Required!</span>
+      <span class="error" style="color:red" *ngIf="email.errors?.email">Not valid email!</span>
+    </div>
+    <div class="form-group">
+      <label for="password"> Password: </label>
+      <input type="password" id="password" #password="ngModel" name="password" class="form-control" placeholder="Enter Password " [(ngModel)]="userData.password" ng-pattern="/(?=.*[A-Z])(?=.*[@#$%&])(?=.*[^a-zA-Z]).{1,}/" required/>
+      <span class="error" style="color:red" *ngIf="password.dirty && password.errors?.required">Required!</span>
+      <span class="error" style="color:red" *ngIf="password.errors?.pattern">At least 8 characters, Must have one uppercase character,Must have one special character ex.: $, @, #</span>
+    </div>
+    <div class="form-group">
+      <label for="cnfpassword"> Confirm Password: </label>
+      <input type="password" id="cnfpassword" #cnfpassword="ngModel" name="cnfpassword" class="form-control" placeholder="Enter Confirm Password " [(ngModel)]="userData.cnfpassword" validate-identical="userData.password" required/>
+      <span class="error" style="color:red" *ngIf="cnfpassword.dirty && userData.password != userData.cnfpassword">Your passwords must match.</span>
+    </div> 
+    <br>
+    <button class="btn btn-primary btn-block" type="submit" [disabled]="registerForm.invalid || userData.password != userData.cnfpassword">Register</button>
+
+  </form>
+</div>

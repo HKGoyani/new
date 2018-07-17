@@ -1,0 +1,42 @@
+<body ng-app="chatApp" ng-controller="chatController">
+  <div style="display: -webkit-inline-box;">
+    <div class="onlineUserList">
+      <tbody>
+          <div style="text-align:center;color:blue">
+              <h3>
+                <b>Online Users</b>
+              </h3>
+            </div> 
+        <ng-container *ngFor="let x of userList">
+          <tr>
+            <td>
+              <button type="button" class="btn btn-primary" (ngSubmit)="startChatWith(x.email)" >{{x.un}}</button>
+            </td>
+          </tr>
+        </ng-container>
+        <tr *ngIf="!userList || userList.length==0">
+          <td colspan="5">
+            Online Users Not Available
+          </td>
+        </tr>
+      </tbody>
+    </div>
+    <div>
+      <!-- ng-app="chatController" -->
+      <ul class="pages">
+        <li class="chat page" style="display: list-item;">
+          <div class="chatArea">
+            <ul class="messages">
+              <li class="log" style="display: list-item;">Welcome to Chat</li>
+            </ul>
+          </div>
+          <div style="display: grid">
+            <input class="inputMessage" placeholder="Type here..." #usermsg="ngModel" name="usermsg" [(ngModel)]="chatData.usermsg" />
+            <input type="button" class="btn btn-primary" (ngClick)="sendMsg(chatData)" class="btn btn-primary" value="Submit">
+          </div>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</body>
